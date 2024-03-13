@@ -35,6 +35,22 @@ rows_spacebar = cellfun(@isempty, proc_data.(gender_column)); %rows containing e
    else
        disp ('No rows found to delete.');
    end 
+%% Goal 4: Remove any row in which there is "text" (these are just instruction slides) under the "Content" column 
+content_column= 'content'; %column to check for 'text'
+delete_text = {'text'}; 
+%identify rows containing 'text' and delete the corresponding rows
+rows_text= ismember(proc_data.(content_column),delete_text); %rows containing text 
+    if any (rows_text) %delete any rows in which 'text' is in the 'content' column
+        proc_data(rows_text, :)=[];
+        disp ('Updated Data:');
+        disp (proc_data);
+        writetable(proc_data, new_data, 'Sheet','Processed_data', 'WriteVariableNames',true); %save updated data to the same file
+    else 
+        disp ('No rows found to delete.');
+    end
+
+
+
 
 
 
