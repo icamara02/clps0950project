@@ -1,9 +1,9 @@
-raw_data = readtable ('/Users/icamara/Downloads/clps0950project/clps0950_rawdata.xlsx');
-original_data ='/Users/icamara/Downloads/clps0950project/clps0950_rawdata.xlsx';
-new_data = '/Users/icamara/Downloads/clps0950project/clps0950_processeddata.xlsx';
+raw_data = readtable ('clps0950_rawdata.xlsx');
+original_data ='clps0950_rawdata.xlsx';
+new_data = 'clps0950_processeddata.xlsx';
 copyfile (original_data, new_data); %make a duplicate file of the raw data
 
-proc_data = readtable ('/Users/icamara/Downloads/clps0950project/clps0950_processeddata.xlsx');
+proc_data = readtable ('clps0950_processeddata.xlsx');
 
 %% Goal 1: remove any blank columns in which there is no variable in the first row 
 proc_data (:,6:10) = [];
