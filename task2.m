@@ -38,4 +38,3 @@ for dd = 1:size(pivot_table,1) %go through the row for CN_Incong
    cn_incong_a = mean([conditiontable1.responseTime]);
    pivot_table{dd, 5} = cn_incong_a;
 end
-
