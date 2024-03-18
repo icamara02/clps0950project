@@ -17,8 +17,7 @@ delete_variables = {'CN_Neutral', 'GC_Neutral', 'GC_PracticeInstr', 'CN_Practice
 rows_delete = ismember(proc_data.(congruence_column),delete_variables);
 if any (rows_delete) %delete rows if there are any to delete
     proc_data(rows_delete, :)= [];
-    disp ('Updated Data:'); %display updated data table
-    disp(proc_data);
+    
     writetable(proc_data, new_data, 'Sheet','Processed_data','WriteVariableNames', true); %save updated data to same file
 else 
         %Display message if no rows are found to delete 
@@ -29,8 +28,7 @@ gender_column= 'Gender'; %column to check
 rows_spacebar = cellfun(@isempty, proc_data.(gender_column)); %rows containing empty cells
    if any (rows_spacebar) %delete any rows within the column that are empty
        proc_data(rows_spacebar, :) = [];
-       disp ('Updated Data:');
-       disp (proc_data);
+       
        writetable (proc_data, new_data, 'Sheet','Gender', 'WriteVariableNames',true); 
    else
        disp ('No rows found to delete.');
@@ -42,8 +40,7 @@ delete_text = {'text'};
 rows_text= ismember(proc_data.(content_column),delete_text); %rows containing text 
     if any (rows_text) %delete any rows in which 'text' is in the 'content' column
         proc_data(rows_text, :)=[];
-        disp ('Updated Data:');
-        disp (proc_data);
+
         writetable(proc_data, new_data, 'Sheet','Processed_data', 'WriteVariableNames',true); %save updated data to the same file
     else 
         disp ('No rows found to delete.');
