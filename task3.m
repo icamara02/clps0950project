@@ -75,14 +75,27 @@ figure;
         legend ('Location', 'best')
         grid on;
 %% Create box plot comparing average response times between conditions 
-data = readtable ('pivot_table.csv');
-%identify condition columns 
-response_times = [data.CN_Cong, data.CN_Incong, data.GC_Cong, data.GC_Incong];
+while true 
+    boxplot_prompt= 'Do you want to see a box plot? (yes/no)';
+    str = input (boxplot_prompt, 's');
+    if strcmpi (str, 'yes')
 
-%create boxplot
-figure;
-boxplot(response_times, 'Labels', {'CN Congruent', 'CN Incongruent', 'GC Congruent', 'GC Incongruent'});
-xlabel ('Task and Condition');
-ylabel ('Response Time');
-title ('Box Plot of Reponse Times for Different Tasks and Conditions')
-
+    data = readtable ('pivot_table.csv');
+    %identify condition columns 
+    response_times = [data.CN_Cong, data.CN_Incong, data.GC_Cong, data.GC_Incong];
+    
+    %create boxplot
+    figure;
+        boxplot(response_times, 'Labels', {'CN Congruent', 'CN Incongruent', 'GC Congruent', 'GC Incongruent'});
+        xlabel ('Task and Condition');
+        ylabel ('Response Time');
+        title ('Box Plot of Reponse Times for Different Tasks and Conditions')
+    
+        break; 
+     elseif strcmpi (str, 'no')
+         disp ('Box plot not requested.');
+         break; 
+    else 
+        disp ('Invalid input. Please enter "yes" or "no".');
+    end 
+end 
