@@ -54,4 +54,24 @@ else
 end
 
 
+%% Produce log-transformed graph with average response times between conditions
+data = readtable ('pivot_table.csv'); %load data
+
+    CN_Cong_rt = data.CN_Cong; % Response times for congruent condition in CN task
+    CN_InCong_rt= data.CN_Incong; % Response times for incongruent condition in CN task
+    GC_Cong_rt = data.GC_Cong;  % Response times for congruent condition in GC task
+    GC_InCong_rt = data.GC_Incong;  % Response times for incongruent condition in GC task
+
+%plot line graph 
+figure; 
+    plot (CN_Cong_rt, 'b-', 'DisplayName','Color Naming Congruent');
+    hold on; 
+    plot (CN_InCong_rt, 'b--', 'DisplayName', 'Color Naming Incongruent');
+    plot (GC_Cong_rt, 'r-', 'DisplayName', 'Gender-catergorization Congruent');
+    plot (GC_InCong_rt, 'r--', 'DisplayName','Gender-catergorization Incongruent');
+        xlabel('Particiapnt');
+        ylabel('Log-Transformed Response Time');
+        title ('Log-Transformed Response Time for Congruent and Incongruent Conditions');
+        legend ('Location', 'best')
+        grid on; 
 
