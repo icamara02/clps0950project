@@ -1,23 +1,31 @@
 %% produce a descriptive statistics table
-data = readtable('pivot_table.csv');% Load pivot table data 
-
-
-condition_data = data{:, {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'}};% Select condition variables
-
-% Calculate descriptive statistics for each condition column
-mean_data = mean(condition_data);
-median_data = median(condition_data);
-std_data = std(condition_data);
-min_data = min(condition_data);
-max_data = max(condition_data);
-
-% Combine measures into one statistics table
-descriptive_table = table(mean_data', median_data', std_data', min_data', max_data', 'VariableNames', {'Mean', 'Median', 'StdDev', 'Min', 'Max'},'RowNames', {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'});
-
-% Display descriptive statistics table
-disp(descriptive_table);
-
-
+while true 
+    descriptives_prompt = 'Do you want to see a descriptives table? (yes/no):';
+    str = input (descriptives_prompt, 's');
+    %user input
+     if strcmpi(str, 'yes')
+        data = readtable('pivot_table.csv');% Load pivot table data 
+        condition_data = data{:, {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'}};% Select condition variables
+        % Calculate descriptive statistics for each condition column
+        mean_data = mean(condition_data);
+        median_data = median(condition_data);
+        std_data = std(condition_data);
+        min_data = min(condition_data);
+        max_data = max(condition_data);
+      
+        % Combine measures into one statistics table
+        descriptive_table = table(mean_data', median_data', std_data', min_data', max_data', 'VariableNames', {'Mean', 'Median', 'StdDev', 'Min', 'Max'},'RowNames', {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'});  
+        % Display descriptive statistics table
+        disp(descriptive_table);
+        break; %stop loop
+     else if strcmpi (str, 'no')
+             disp ('Descriptive table not requested.');
+             break; 
+     else 
+         disp ('Invalid input. Please enter "yes" or "no".');
+     end 
+     end 
+end 
 %% perform a Repeated-Meaures ANOVA
 
 data = readtable('pivot_table.csv'); % Load  data
@@ -76,20 +84,19 @@ figure;
         grid on;
 %% Create box plot comparing average response times between conditions 
 while true 
-    boxplot_prompt= 'Do you want to see a box plot? (yes/no)';
+    boxplot_prompt= 'Do you want to see a box plot? (yes/no)'; %ask user if they want a boxplot 
     str = input (boxplot_prompt, 's');
-    if strcmpi (str, 'yes')
-
-    data = readtable ('pivot_table.csv');
-    %identify condition columns 
-    response_times = [data.CN_Cong, data.CN_Incong, data.GC_Cong, data.GC_Incong];
-    
-    %create boxplot
-    figure;
-        boxplot(response_times, 'Labels', {'CN Congruent', 'CN Incongruent', 'GC Congruent', 'GC Incongruent'});
-        xlabel ('Task and Condition');
-        ylabel ('Response Time');
-        title ('Box Plot of Reponse Times for Different Tasks and Conditions')
+    if strcmpi (str, 'yes') %check for input "yes"
+        data = readtable ('pivot_table.csv');
+        %identify condition columns 
+        response_times = [data.CN_Cong, data.CN_Incong, data.GC_Cong, data.GC_Incong];
+        
+        %create boxplot
+        figure;
+            boxplot(response_times, 'Labels', {'CN Congruent', 'CN Incongruent', 'GC Congruent', 'GC Incongruent'});
+            xlabel ('Task and Condition');
+            ylabel ('Response Time');
+            title ('Box Plot of Reponse Times for Different Tasks and Conditions')
     
         break; 
      elseif strcmpi (str, 'no')
