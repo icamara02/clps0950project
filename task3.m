@@ -1,6 +1,26 @@
+%% produce a descriptive statistics table
+data = readtable('pivot_table.csv');% Load pivot table data 
+
+
+condition_data = data{:, {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'}};% Select condition variables
+
+% Calculate descriptive statistics for each condition column
+mean_data = mean(condition_data);
+median_data = median(condition_data);
+std_data = std(condition_data);
+min_data = min(condition_data);
+max_data = max(condition_data);
+
+% Combine measures into one statistics table
+descriptive_table = table(mean_data', median_data', std_data', min_data', max_data', 'VariableNames', {'Mean', 'Median', 'StdDev', 'Min', 'Max'},'RowNames', {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'});
+
+% Display descriptive statistics table
+disp(descriptive_table);
+
+
 %% perform a Repeated-Meaures ANOVA
 
-data = readtable('pivot_table.csv'); % Load your data
+data = readtable('pivot_table.csv'); % Load  data
 
 within_subjects_factors = {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'};% Define within-subjects factors (conditions)
 
@@ -8,6 +28,7 @@ rm = fitrm(data, 'GC_Cong-CN_Incong~1', 'WithinDesign', within_subjects_factors)
 
 ranova_results = ranova(rm); % Perform repeated measures ANOVA
 disp (ranova_results);
+
 %% perform a One-way ANOVA
 data = readtable('pivot_table.csv'); %load data from the pivot table with average response times
 
@@ -20,3 +41,17 @@ response_times = data{:, conditions}; % Extract response times for each conditio
 disp(tbl);% Display ANOVA table
 disp(stats);% Display ANOVA statistics
 disp(['p-value: ', num2str(p)]);% Display p-value
+
+%% Check if ANOVA result is significant
+if p < 0.05
+    % Conduct Tukey's Honestly Significant Difference (HSD) test for post hoc analysis
+    comparison = multcompare(stats);
+    
+    % Display post hoc comparison results
+    disp(comparison);
+else
+    disp('No significant differences found.');
+end
+
+
+
