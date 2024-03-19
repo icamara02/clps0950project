@@ -73,5 +73,16 @@ figure;
         ylabel('Log-Transformed Response Time');
         title ('Log-Transformed Response Time for Congruent and Incongruent Conditions');
         legend ('Location', 'best')
-        grid on; 
+        grid on;
+%% Create box plot comparing average response times between conditions 
+data = readtable ('pivot_table.csv');
+%identify condition columns 
+response_times = [data.CN_Cong, data.CN_Incong, data.GC_Cong, data.GC_Incong];
+
+%create boxplot
+figure;
+boxplot(response_times, 'Labels', {'CN Congruent', 'CN Incongruent', 'GC Congruent', 'GC Incongruent'});
+xlabel ('Task and Condition');
+ylabel ('Response Time');
+title ('Box Plot of Reponse Times for Different Tasks and Conditions')
 
