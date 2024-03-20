@@ -175,7 +175,7 @@ while true
     if strcmpi (str, 'yes') %check for input "yes"
     figure;
     histogram(proc_data.LogRT)
-    xlabel('Log Transformed Respone Times');   		% x label
+    xlabel('Log Transformed Response Times');   		% x label
     ylabel('Frequency');   		% y label
     title('Histogram of LogRT for Participants');	% title
     break; %stop loop
