@@ -56,4 +56,4 @@ final_table = cell2table(pivot_table,'VariableNames',varNames);
 %exporting the table to CSV
 writetable(final_table, 'pivot_table.csv');
 
-
+disp ('Result: pivot_table.csv contains the processed data from clps0950_processeddata.xlsx')
