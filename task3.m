@@ -47,7 +47,7 @@ while true
              disp ('Repeated-measures ANOVA not requested.');
              break; 
      else 
-         disp ('Invalid input. Please enter "yes" or "no".');
+         disp ('Invalid input. Please enter "yes" or "no".'); %if user responds with anything besides yes or no 
      end 
      end 
 end 
@@ -102,14 +102,14 @@ while true
             GC_Cong_rt = data.GC_Cong;  % Response times for congruent condition in GC task
             GC_InCong_rt = data.GC_Incong;  % Response times for incongruent condition in GC task
         
-        %plot line graph 
+        %plot line graph and add labels to the figure 
         figure; 
-            plot (CN_Cong_rt, 'b-', 'DisplayName','Color Naming Congruent');
+            plot (CN_Cong_rt, 'b-', 'DisplayName','Color Naming Congruent'); %blue solid line for color naming congruent 
             hold on; 
-            plot (CN_InCong_rt, 'b--', 'DisplayName', 'Color Naming Incongruent');
-            plot (GC_Cong_rt, 'r-', 'DisplayName', 'Gender-catergorization Congruent');
-            plot (GC_InCong_rt, 'r--', 'DisplayName','Gender-catergorization Incongruent');
-                xlabel('Particiapnt');
+            plot (CN_InCong_rt, 'b--', 'DisplayName', 'Color Naming Incongruent'); %blue dotted line for color namign incongruent
+            plot (GC_Cong_rt, 'r-', 'DisplayName', 'Gender-catergorization Congruent'); %red solid line for gender-catergorization congruent
+            plot (GC_InCong_rt, 'r--', 'DisplayName','Gender-catergorization Incongruent'); %blue solid line for gender-catergorization incongurent 
+                xlabel('Participant');
                 ylabel('Log-Transformed Response Time');
                 title ('Log-Transformed Response Time for Congruent and Incongruent Conditions');
                 legend ('Location', 'best')
@@ -140,7 +140,7 @@ while true
             title ('Box Plot of Reponse Times for Different Tasks and Conditions')
     
         break; 
-     elseif strcmpi (str, 'no')
+    elseif strcmpi (str, 'no') %if user responds no, display message saying that plot wasn't requested
          disp ('Box plot not requested.');
          break; 
     else 
