@@ -20,14 +20,15 @@ while true
         % Display descriptive statistics table
         disp(descriptive_table);
         break; %stop loop
-     else if strcmpi (str, 'no')
+    
+     elseif strcmpi (str, 'no')
              disp ('Descriptive table not requested.');
              break; 
      else 
          disp ('Invalid input. Please enter "yes" or "no".');
      end 
-     end 
 end 
+ 
 %% perform a Repeated-Meaures ANOVA
 while true 
     descriptives_prompt = 'Do you want to perform a repeated-measure ANOVA? (yes/no):';
@@ -42,15 +43,16 @@ while true
         
         ranova_results = ranova(rm); % Perform repeated measures ANOVA
         disp (ranova_results);
-     break; %stop loop
-     else if strcmpi (str, 'no')
+        break; %stop loop
+    
+     elseif strcmpi (str, 'no')
              disp ('Repeated-measures ANOVA not requested.');
              break; 
      else 
          disp ('Invalid input. Please enter "yes" or "no".'); %if user responds with anything besides yes or no 
      end 
-     end 
 end 
+     
 %% perform a One-way ANOVA
 while true 
     descriptives_prompt = 'Do you want to perform a one-way ANOVA? (yes/no):';
@@ -68,25 +70,14 @@ while true
         disp(tbl);% Display ANOVA table
         disp(stats);% Display ANOVA statistics
         disp(['p-value: ', num2str(p)]);% Display p-value
- break; %stop loop
-     else if strcmpi (str, 'no')
+        break; %stop loop
+     elseif strcmpi (str, 'no')
              disp ('One-way ANOVA not requested.');
              break; 
      else 
          disp ('Invalid input. Please enter "yes" or "no".');
      end 
-     end 
 end 
-%% Check if ANOVA result is significant
-if p < 0.05
-    % Conduct Tukey's Honestly Significant Difference (HSD) test for post hoc analysis
-    comparison = multcompare(stats);
-    
-    % Display post hoc comparison results
-    disp(comparison);
-else
-    disp('No significant differences found.');
-end
 
 
 %% Produce log-transformed graph with average response times between conditions
@@ -146,8 +137,7 @@ while true
     else 
         disp ('Invalid input. Please enter "yes" or "no".');
     end 
-end 
-
+end  
 %% Create a histogram of response times
 while true 
     boxplot_prompt= 'Do you want to see a histogram of response times? (yes/no)'; %ask user if they want a boxplot 
