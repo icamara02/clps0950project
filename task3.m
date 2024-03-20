@@ -27,29 +27,54 @@ while true
      end 
 end 
 %% perform a Repeated-Meaures ANOVA
-
-data = readtable('pivot_table.csv'); % Load  data
-
-within_subjects_factors = {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'};% Define within-subjects factors (conditions)
-
-rm = fitrm(data, 'GC_Cong-CN_Incong~1', 'WithinDesign', within_subjects_factors);% Create a repeated measures model
-
-ranova_results = ranova(rm); % Perform repeated measures ANOVA
-disp (ranova_results);
-
+while true 
+    descriptives_prompt = 'Do you want to perform a repeated-measure ANOVA? (yes/no):';
+    str = input (descriptives_prompt, 's');
+    %user input
+     if strcmpi(str, 'yes')
+        data = readtable('pivot_table.csv'); % Load  data
+        
+        within_subjects_factors = {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'};% Define within-subjects factors (conditions)
+        
+        rm = fitrm(data, 'GC_Cong-CN_Incong~1', 'WithinDesign', within_subjects_factors);% Create a repeated measures model
+        
+        ranova_results = ranova(rm); % Perform repeated measures ANOVA
+        disp (ranova_results);
+     break; %stop loop
+     else if strcmpi (str, 'no')
+             disp ('Repeated-measures ANOVA not requested.');
+             break; 
+     else 
+         disp ('Invalid input. Please enter "yes" or "no".');
+     end 
+     end 
+end 
 %% perform a One-way ANOVA
-data = readtable('pivot_table.csv'); %load data from the pivot table with average response times
-
-conditions = {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'};%define the four conditions
-
-response_times = data{:, conditions}; % Extract response times for each condition
-
-[p, tbl, stats] = anova1(response_times);% Perform one-way ANOVA
-
-disp(tbl);% Display ANOVA table
-disp(stats);% Display ANOVA statistics
-disp(['p-value: ', num2str(p)]);% Display p-value
-
+while true 
+    descriptives_prompt = 'Do you want to perform a one-way ANOVA? (yes/no):';
+    str = input (descriptives_prompt, 's');
+    %user input
+     if strcmpi(str, 'yes')
+        data = readtable('pivot_table.csv'); %load data from the pivot table with average response times
+        
+        conditions = {'GC_Cong', 'GC_Incong', 'CN_Cong', 'CN_Incong'};%define the four conditions
+        
+        response_times = data{:, conditions}; % Extract response times for each condition
+        
+        [p, tbl, stats] = anova1(response_times);% Perform one-way ANOVA
+        
+        disp(tbl);% Display ANOVA table
+        disp(stats);% Display ANOVA statistics
+        disp(['p-value: ', num2str(p)]);% Display p-value
+ break; %stop loop
+     else if strcmpi (str, 'no')
+             disp ('One-way ANOVA not requested.');
+             break; 
+     else 
+         disp ('Invalid input. Please enter "yes" or "no".');
+     end 
+     end 
+end 
 %% Check if ANOVA result is significant
 if p < 0.05
     % Conduct Tukey's Honestly Significant Difference (HSD) test for post hoc analysis
@@ -63,25 +88,39 @@ end
 
 
 %% Produce log-transformed graph with average response times between conditions
-data = readtable ('pivot_table.csv'); %load data
-
-    CN_Cong_rt = data.CN_Cong; % Response times for congruent condition in CN task
-    CN_InCong_rt= data.CN_Incong; % Response times for incongruent condition in CN task
-    GC_Cong_rt = data.GC_Cong;  % Response times for congruent condition in GC task
-    GC_InCong_rt = data.GC_Incong;  % Response times for incongruent condition in GC task
-
-%plot line graph 
-figure; 
-    plot (CN_Cong_rt, 'b-', 'DisplayName','Color Naming Congruent');
-    hold on; 
-    plot (CN_InCong_rt, 'b--', 'DisplayName', 'Color Naming Incongruent');
-    plot (GC_Cong_rt, 'r-', 'DisplayName', 'Gender-catergorization Congruent');
-    plot (GC_InCong_rt, 'r--', 'DisplayName','Gender-catergorization Incongruent');
-        xlabel('Particiapnt');
-        ylabel('Log-Transformed Response Time');
-        title ('Log-Transformed Response Time for Congruent and Incongruent Conditions');
-        legend ('Location', 'best')
-        grid on;
+while true 
+  descriptives_prompt = 'Do you want to produce a graph with average response time between conditions? (yes/no):';
+  str = input (descriptives_prompt, 's');
+  %user input
+  if strcmpi(str, 'yes')
+    data = readtable ('pivot_table.csv'); %load data
+        
+            CN_Cong_rt = data.CN_Cong; % Response times for congruent condition in CN task
+            CN_InCong_rt= data.CN_Incong; % Response times for incongruent condition in CN task
+            GC_Cong_rt = data.GC_Cong;  % Response times for congruent condition in GC task
+            GC_InCong_rt = data.GC_Incong;  % Response times for incongruent condition in GC task
+        
+        %plot line graph 
+        figure; 
+            plot (CN_Cong_rt, 'b-', 'DisplayName','Color Naming Congruent');
+            hold on; 
+            plot (CN_InCong_rt, 'b--', 'DisplayName', 'Color Naming Incongruent');
+            plot (GC_Cong_rt, 'r-', 'DisplayName', 'Gender-catergorization Congruent');
+            plot (GC_InCong_rt, 'r--', 'DisplayName','Gender-catergorization Incongruent');
+                xlabel('Particiapnt');
+                ylabel('Log-Transformed Response Time');
+                title ('Log-Transformed Response Time for Congruent and Incongruent Conditions');
+                legend ('Location', 'best')
+                grid on;
+  break; %stop loop
+     else if strcmpi (str, 'no')
+             disp ('Graph not requested.');
+             break; 
+     else 
+         disp ('Invalid input. Please enter "yes" or "no".');
+     end 
+     end 
+end 
 %% Create box plot comparing average response times between conditions 
 while true 
     boxplot_prompt= 'Do you want to see a box plot? (yes/no)'; %ask user if they want a boxplot 
