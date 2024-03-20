@@ -1,3 +1,5 @@
+%% Make sure to have run task1 and task2 before running this script
+
 %% produce a descriptive statistics table
 while true 
     descriptives_prompt = 'Do you want to see a descriptives table? (yes/no):';
