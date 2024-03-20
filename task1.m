@@ -1,3 +1,5 @@
+%% Instructions: Run this task1 first
+
 %% Import and read raw data
 raw_data = readtable ('clps0950_rawdata.xlsx');
 original_data ='clps0950_rawdata.xlsx';
@@ -47,3 +49,4 @@ rows_text= ismember(proc_data.(content_column),delete_text); %rows containing te
         disp ('No rows found to delete.');
     end
 
+disp ('Result: clps0950_processeddata.xlsx contains the processed data from clps0950_rawdata.xlsx')
